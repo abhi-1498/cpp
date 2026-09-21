@@ -30,6 +30,20 @@ public:
         other.size = 0;
     }
 
+    buffer& operator=(buffer&& other) noexcept {
+        if(this != &other){
+            std::cout<<"move assignment.\n";
+            delete data;
+
+            data = other.data;
+            size = other.size;
+
+            other.data = nullptr;
+            size = 0;
+        }
+        return *this;
+    }
+
     ~buffer(){
         delete data;
     }
@@ -43,6 +57,9 @@ int main(){
 
     //move constructor
     buffer obj2 = std::move(obj);
+
+    //move assignment
+    objcp = std::move(obj2);
 
     return 0;
 }
