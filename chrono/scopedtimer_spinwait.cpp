@@ -23,7 +23,7 @@ int main(){
     scopedTimer timer("main");
 
     // elapsed time for main:16000300ns
-    // splin lock or busy wait does not leave cpu and hence is more accurate
+    // spin wait or busy wait does not leave cpu and hence is more accurate
     auto start = std::chrono::steady_clock::now();
     while(std::chrono::steady_clock::now()-start < std::chrono::milliseconds(16));
 
