@@ -9,7 +9,7 @@ int amount = 0;
 void addMoney(){
     std::lock_guard<std::mutex> lock(m);
     amount += 500;
-    cv.notify_all();
+    cv.notify_one();
 }
 
 void widrawMoney(){
@@ -17,6 +17,7 @@ void widrawMoney(){
     cv.wait(lock,[](){return amount>0 ? true : false ;});
     amount-=100;
     std::cout<<std::this_thread::get_id()<<" deducted amount.\n";
+    cv.notify_one();
 }
 
 int main(){
